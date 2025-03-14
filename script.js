@@ -2,13 +2,13 @@ let ido = parseInt(document.getElementById("Ido"));
 
 function start() {
     const doboz = document.getElementById("doboz");   
-    const x = parseInt(document.getElementById("Sor").value);
-    const y = parseInt(document.getElementById("Oszlop").value);
+    const x = parseInt(document.getElementById("sor").value);
+    const y = parseInt(document.getElementById("oszlop").value);
     Megjelenit(doboz, x, y);
 }
 
-function RNG() {
-
+function rng(min,max) {
+    return Math.floor(Math.random()*(max-min+1))+min;
 }
 
 function WinCheck() {
