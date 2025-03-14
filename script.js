@@ -1,4 +1,5 @@
 let ido = parseInt(document.getElementById("Ido"));
+let kovetkezo = 1;
 
 function start() {
     const doboz = document.getElementById("doboz");   
@@ -11,11 +12,11 @@ function rng(min,max) {
     return Math.floor(Math.random()*(max-min+1))+min;
 }
 
-function WinCheck() {
+function winCheck() {
     
 }
 
-function Idozitoupdate() {
+function idozitoUpdate() {
 
 }
 
@@ -23,7 +24,15 @@ function game() {
 
 }
 
-function EsesHelySzamito() {
+function kereses(l, v, n) {
+    let i = 0;
+    while (i < n && l[i] != v) {
+        i++;
+    }
+    return (i < n) ? i : -1;
+}
+
+function esesHelySzamito() {
 
 }
 
