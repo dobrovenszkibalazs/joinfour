@@ -1,11 +1,22 @@
 let ido = parseInt(document.getElementById("Ido"));
-let kovetkezo = 1;
+let jatekos = 1;
+const alsok = [];
+const matrix = [];
+const tabla = [];
 
 function start() {
     const doboz = document.getElementById("doboz");   
     const x = parseInt(document.getElementById("sor").value);
     const y = parseInt(document.getElementById("oszlop").value);
+    feltoltAlsok(x);
     Megjelenit(doboz, x, y);
+}
+
+function feltoltAlsok(n) {
+    for (let i = 0; i < n; i++) {
+        alsok[i] = 0;
+    }
+    console.log(alsok);
 }
 
 function rng(min,max) {
@@ -24,6 +35,25 @@ function game() {
 
 }
 
+function frissit() {
+    for (let i = 0; i < matrix.length; i++) {
+        for (let j = 0; j < matrix[i].length; j++) {
+            if (matrix[i][j] == 0) {
+                tabla
+            } else if (matrix[i][j] == 1) {
+                
+            } else if (matrix[i][j] == 2) {
+                
+            }
+        }
+    }
+}
+
+function lerak(j) {
+    alsok[j] = jatekos;
+    
+}
+
 function kereses(l, v, n) {
     let i = 0;
     while (i < n && l[i] != v) {
@@ -32,21 +62,26 @@ function kereses(l, v, n) {
     return (i < n) ? i : -1;
 }
 
-function esesHelySzamito() {
-
-}
-
 function Megjelenit(doboz, x, y) {
     doboz.innerHTML = "";
     const table = document.createElement("table");
     for (let i = 0; i < x; i++) {
         const tr = document.createElement("tr");
+        matrix[i] = [];
+        tabla[i] = [];
         for (let j = 0; j < y; j++) {
             const td = document.createElement("td");
             td.innerText = "-"
             tr.appendChild(td);
+            td.addEventListener("click", function() {
+                lerak(j);
+                console.log(j)
+            })
+            tabla[i][j] = td;
+            matrix[i][j] = 0;
         }
         table.appendChild(tr);
     }
     doboz.appendChild(table);
+    console.log(matrix);
 }
