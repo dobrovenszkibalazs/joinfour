@@ -3,11 +3,13 @@ let jatekos = 1;
 const alsok = [];
 const matrix = [];
 const tabla = [];
+let x; 
+let y;
 
 function start() {
     const doboz = document.getElementById("doboz");   
-    const x = parseInt(document.getElementById("sor").value);
-    const y = parseInt(document.getElementById("oszlop").value);
+    x = parseInt(document.getElementById("sor").value);
+    y = parseInt(document.getElementById("oszlop").value);
     feltoltAlsok(x);
     Megjelenit(doboz, x, y);
 }
@@ -39,19 +41,30 @@ function frissit() {
     for (let i = 0; i < matrix.length; i++) {
         for (let j = 0; j < matrix[i].length; j++) {
             if (matrix[i][j] == 0) {
-                tabla
+                tabla[i][j].innerHTML = "-";
             } else if (matrix[i][j] == 1) {
-                
-            } else if (matrix[i][j] == 2) {
-                
+                tabla[i][j].innerHTML = "1";
+            } else {
+                tabla[i][j].innerHTML = "2";
             }
         }
     }
 }
 
+function koviJatekos() {
+    if (jatekos == 1) {
+        jatekos++;
+    } else {
+        jatekos--;
+    }
+}
+
 function lerak(j) {
-    alsok[j] = jatekos;
-    
+    console.log(alsok);
+    matrix[y-alsok[j]-1][j] = jatekos;
+    alsok[j]++;
+    koviJatekos();
+    frissit();
 }
 
 function kereses(l, v, n) {
