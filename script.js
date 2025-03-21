@@ -60,11 +60,13 @@ function koviJatekos() {
 }
 
 function lerak(j) {
-    console.log(alsok);
-    matrix[y-alsok[j]-1][j] = jatekos;
-    alsok[j]++;
-    koviJatekos();
-    frissit();
+    if (alsok[j] < x) {
+        console.log(alsok);
+        matrix[y-alsok[j]-1][j] = jatekos;
+        alsok[j]++;
+        koviJatekos();
+        frissit();
+    }
 }
 
 function kereses(l, v, n) {
