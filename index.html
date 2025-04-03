@@ -8,14 +8,16 @@
     <title>Connect four de nem csak four</title>
 </head>
 <body>
-    <div class="container">
-        <input type="number" name="Sor" id="sor">
-        <input type="number" name="Oszlop" id="oszlop">
-        <input type="number" name="Idő" id="ido">
-        <input type="button" value="Generalas" id="start" onclick="start()">
-        <div id="doboz">
-        
-        </div>
+    <div id="controls">
+        <input type="number" id="sor" placeholder="X">
+        <input type="number" id="oszlop" placeholder="Y">
+        <input type="number" id="ido" placeholder="Idő">
+        <button onclick="start()">Generálj!</button>
     </div>
+    <div id="gameContainer">
+        <div id="doboz">
+
+        </div>
+    </div> 
 </body>
 </html>
