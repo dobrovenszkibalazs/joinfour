@@ -43,9 +43,11 @@ function frissit() {
             if (matrix[i][j] == 0) {
                 tabla[i][j].innerHTML = "-";
             } else if (matrix[i][j] == 1) {
-                tabla[i][j].innerHTML = "1";
+                tabla[i][j].innerHTML = "O";
+                tabla[i][j].style.color = "blue";
             } else {
-                tabla[i][j].innerHTML = "2";
+                tabla[i][j].innerHTML = "O";
+                tabla[i][j].style.color = "red";
             }
         }
     }

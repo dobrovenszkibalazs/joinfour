@@ -1,15 +1,26 @@
 body {
-    background-color: blanchedalmond;
-    display: flex;
-    flex-wrap: nowrap;
-    align-items: stretch;
-    align-items: center;
-    justify-content: center;
+    background-color: rgb(241, 224, 194);
 }
 
-.container {
+#controls {
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+#gameContainer {
     display: flex;
-    flex-direction: row;
-    align-items: center;
-    gap: 20px;
+    justify-content: center;
+    width: 100%;
+}
+
+table {
+    border: 2px solid black;
+}
+
+td {
+    width: 30px;
+    height: 30px;
+    text-align: center;
+    font-size: 20px;
+    border: 1px solid black;
 }
