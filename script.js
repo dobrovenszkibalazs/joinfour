@@ -5,14 +5,24 @@ const matrix = [];
 const tabla = [];
 let x;
 let y;
-const max = 4;
+let kotheto;
 
 function start() {
-    const doboz = document.getElementById("doboz");   
+    const doboz = document.getElementById("doboz");
     x = parseInt(document.getElementById("sor").value);
     y = parseInt(document.getElementById("oszlop").value);
+    n = parseInt(document.getElementById("n").value);
+    kotheto = (n > max(x,y)) ? min(y): n;
     feltoltAlsok(x);
     Megjelenit(doboz, x, y);
+}
+
+function min(x,y) {
+    return (x > y) ? y : x;
+}
+
+function max(x,y) {
+    return (x >= y) ? x : y;
 }
 
 function feltoltAlsok(n) {
@@ -35,8 +45,8 @@ function game() {
 }
 
 function frissit() {
-    for (let i = 0; i < matrix.length; i++) {
-        for (let j = 0; j < matrix[i].length; j++) {
+    for (let i = 0; i < y; i++) {
+        for (let j = 0; j < x; j++) {
             if (matrix[i][j] == 0) {
                 tabla[i][j].innerHTML = "-";
             } else if (matrix[i][j] == 1) {
@@ -65,7 +75,38 @@ function koviJatekos() {
 }
 
 function winCheck() {
-    
+    for (let i = 0; i < x; i++) {
+        combo = 0;
+        j = y-1;
+        while (j-combo >= kotheto) {
+            if (matrix[j][i] == jatekos) {
+                combo++;
+            } else {
+                combo = 0;
+            }
+            j--;
+            if (combo == kotheto) {
+                return true;
+            }
+        }
+    }
+    for (let i = 0; i < y; i++) {
+        combo = 0;
+        j = 0;
+        while (j-combo <= x-kotheto) {
+            if (matrix[i][j] == jatekos) {
+                combo++;
+            } else {
+                combo = 0;
+            }
+            j++;
+            if (combo == kotheto) {
+                return true;
+            }
+        }
+    }
+
+    return false;
 }
 
 function lerak(j) {
@@ -74,6 +115,7 @@ function lerak(j) {
         matrix[y-alsok[j]-1][j] = jatekos;
         alsok[j]++;
         frissit();
+        console.log(winCheck() ? "NYERT " + jatekos : "Nada");
         koviJatekos();
     }
 }
