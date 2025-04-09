@@ -3,8 +3,9 @@ let jatekos = 1;
 const alsok = [];
 const matrix = [];
 const tabla = [];
-let x; 
+let x;
 let y;
+const max = 4;
 
 function start() {
     const doboz = document.getElementById("doboz");   
@@ -25,10 +26,6 @@ function rng(min,max) {
     return Math.floor(Math.random()*(max-min+1))+min;
 }
 
-function winCheck() {
-    
-}
-
 function idozitoUpdate() {
 
 }
@@ -46,17 +43,13 @@ function frissit() {
                 tabla[i][j].innerHTML = "";
                 let img = document.createElement("img");
                 img.src = "imgs/bule.png";
-                img.alt = "O";
-                img.style.width = "100%"; 
-                img.style.height = "100%";    
+                img.alt = "O";  
                 tabla[i][j].appendChild(img);          
             } else {
                 tabla[i][j].innerHTML = "";
                 let img = document.createElement("img");
                 img.src = "imgs/red.png"; 
                 img.alt = "O";
-                img.style.width = "100%"; 
-                img.style.height = "100%"; 
                 tabla[i][j].appendChild(img);
             }
         }
@@ -71,13 +64,17 @@ function koviJatekos() {
     }
 }
 
+function winCheck() {
+    
+}
+
 function lerak(j) {
     if (alsok[j] < x) {
         console.log(alsok);
         matrix[y-alsok[j]-1][j] = jatekos;
         alsok[j]++;
-        koviJatekos();
         frissit();
+        koviJatekos();
     }
 }
 
