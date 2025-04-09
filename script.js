@@ -43,11 +43,21 @@ function frissit() {
             if (matrix[i][j] == 0) {
                 tabla[i][j].innerHTML = "-";
             } else if (matrix[i][j] == 1) {
-                tabla[i][j].innerHTML = "O";
-                tabla[i][j].style.color = "blue";
+                tabla[i][j].innerHTML = "";
+                let img = document.createElement("img");
+                img.src = "imgs/bule.png";
+                img.alt = "O";
+                img.style.width = "100%"; 
+                img.style.height = "100%";    
+                tabla[i][j].appendChild(img);          
             } else {
-                tabla[i][j].innerHTML = "O";
-                tabla[i][j].style.color = "red";
+                tabla[i][j].innerHTML = "";
+                let img = document.createElement("img");
+                img.src = "imgs/red.png"; 
+                img.alt = "O";
+                img.style.width = "100%"; 
+                img.style.height = "100%"; 
+                tabla[i][j].appendChild(img);
             }
         }
     }
