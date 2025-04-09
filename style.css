@@ -14,7 +14,8 @@ body {
 }
 
 table {
-    border: 2px solid black;
+    border: 1px solid black;
+    border-collapse: collapse;
 }
 
 td {
@@ -22,5 +23,5 @@ td {
     height: 30px;
     text-align: center;
     font-size: 20px;
-    border: 1px solid black;
+    border: 2px solid black;
 }
