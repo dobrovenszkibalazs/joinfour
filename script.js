@@ -1,13 +1,12 @@
-let ido = parseInt(document.getElementById("Ido"));
 let jatekos = 1;
 const alsok = [];
 const matrix = [];
 const tabla = [];
+let playerTime = [0, 0];
+let idozito = null;
 let x;
 let y;
 let kotheto;
-let tictactoe;
-let rakhatod;
 
 function start() {
     const doboz = document.getElementById("doboz");
@@ -20,9 +19,54 @@ function start() {
         n = parseInt(document.getElementById("n").value);
         kotheto = (n > max(x,y)) ? min(y): n;
     }
+    let ido = parseInt(document.getElementById("Ido").value);
     feltoltAlsok(x);
     Megjelenit(doboz, x, y);
+    playerTime[0] = ido * 60;
+    playerTime[1] = ido * 60;
+    idozitoUpdate();
+    startTimer(jatekos);
 }
+
+function startTimer(player) {
+    stop();
+
+    idozito = setInterval(() => {
+        const index = player - 1;
+        if (playerTime[index] > 0) {
+            playerTime[index]--;
+            idozitoUpdate();
+        } else {
+            stop();
+        }
+    }, 1000);
+}
+
+function stop() {
+    clearInterval(idozito);
+}
+
+function idozitoUpdate() {
+    var elsotimer = formatTime(playerTime[0]);
+    var masodiktimer = formatTime(playerTime[1]);
+    document.getElementById("player1Time").innerText = `Player 1: ${elsotimer}`;
+    document.getElementById("player2Time").innerText = `Player 2: ${masodiktimer}`;
+}
+
+function formatTime(ms) {
+    let min = Math.floor(ms / 60);
+    let sec = ms % 60;
+    let minS = min.toString();
+    let secS = sec.toString();
+    if (min < 10) {
+        minS = "0" + minS;
+    }
+    if (sec < 10) {
+        secS = "0" + secS;
+    }
+    return minS + ":" + secS;
+}
+
 
 function min(x,y) {
     return (x > y) ? y : x;
@@ -42,10 +86,6 @@ function rng(min,max) {
     return Math.floor(Math.random()*(max-min+1))+min;
 }
 
-function idozitoUpdate() {
-
-}
-
 function game() {
 
 }
@@ -58,13 +98,13 @@ function frissit() {
             } else if (matrix[i][j] == 1) {
                 tabla[i][j].innerHTML = "";
                 let img = document.createElement("img");
-                img.src = (tictactoe) ? "imgs/O.png" : "imgs/bule.png";
+                img.src = "imgs/bule.png";
                 img.alt = "O";  
                 tabla[i][j].appendChild(img);          
             } else {
                 tabla[i][j].innerHTML = "";
                 let img = document.createElement("img");
-                img.src = (tictactoe) ? "imgs/X.png" : "imgs/red.png";
+                img.src = "imgs/red.png"; 
                 img.alt = "O";
                 tabla[i][j].appendChild(img);
             }
@@ -75,8 +115,10 @@ function frissit() {
 function koviJatekos() {
     if (jatekos == 1) {
         jatekos++;
+        startTimer(jatekos);
     } else {
         jatekos--;
+        startTimer(jatekos);
     }
 }
 
@@ -216,7 +258,7 @@ function Megjelenit(doboz, x, y) {
             td.innerText = "-"
             tr.appendChild(td);
             td.addEventListener("click", function() {
-                lerak(i, j);
+                lerak(j);
             })
             tabla[i][j] = td;
             matrix[i][j] = 0;
