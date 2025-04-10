@@ -29,7 +29,6 @@ function feltoltAlsok(n) {
     for (let i = 0; i < n; i++) {
         alsok[i] = 0;
     }
-    console.log(alsok);
 }
 
 function rng(min,max) {
@@ -75,6 +74,7 @@ function koviJatekos() {
 }
 
 function winCheck() {
+    // Vízszintesen
     for (let i = 0; i < x; i++) {
         combo = 0;
         j = y-1;
@@ -90,6 +90,7 @@ function winCheck() {
             }
         }
     }
+    //Oszlopban
     for (let i = 0; i < y; i++) {
         combo = 0;
         j = 0;
@@ -105,13 +106,51 @@ function winCheck() {
             }
         }
     }
-
+    // Jobbra átlósan
+    for (let i = y-1; i >= kotheto-1; i--) {
+        for (let j = 0; j < x-kotheto+1; j++) {
+            combo = 0;
+            let k = i;
+            let l = j;
+            while (l <= x-kotheto+combo && k >= kotheto-1-combo) {
+                if (matrix[k][l] == jatekos) {
+                    combo++;
+                } else {
+                    combo = 0;
+                }
+                k--;
+                l++;
+                if (combo == kotheto) {
+                    return true;
+                }
+            }
+        }
+    }
+    // Balra átlósan
+    for (let i = y-1; i >= kotheto-1; i--) {
+        for (let j = kotheto-1; j < x; j++) {
+            combo = 0;
+            let k = i;
+            let l = j;
+            while (l >= 0 && k >= kotheto-1-combo) {
+                if (matrix[k][l] == jatekos) {
+                    combo++;
+                } else {
+                    combo = 0;
+                }
+                k--;
+                l--;
+                if (combo == kotheto) {
+                    return true;
+                }
+            }
+        }
+    }
     return false;
 }
 
 function lerak(j) {
     if (alsok[j] < x) {
-        console.log(alsok);
         matrix[y-alsok[j]-1][j] = jatekos;
         alsok[j]++;
         frissit();
@@ -141,7 +180,6 @@ function Megjelenit(doboz, x, y) {
             tr.appendChild(td);
             td.addEventListener("click", function() {
                 lerak(j);
-                console.log(j)
             })
             tabla[i][j] = td;
             matrix[i][j] = 0;
@@ -149,5 +187,4 @@ function Megjelenit(doboz, x, y) {
         table.appendChild(tr);
     }
     doboz.appendChild(table);
-    console.log(matrix);
 }
