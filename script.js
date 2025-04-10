@@ -6,13 +6,20 @@ const tabla = [];
 let x;
 let y;
 let kotheto;
+let tictactoe;
+let rakhatod;
 
 function start() {
     const doboz = document.getElementById("doboz");
-    x = parseInt(document.getElementById("sor").value);
-    y = parseInt(document.getElementById("oszlop").value);
-    n = parseInt(document.getElementById("n").value);
-    kotheto = (n > max(x,y)) ? min(y): n;
+    tictactoe = document.getElementById("tictactoe").checked;
+    if (tictactoe) {
+        x = 3, y = 3, kotheto = 3;
+    } else {
+        x = parseInt(document.getElementById("sor").value);
+        y = parseInt(document.getElementById("oszlop").value);
+        n = parseInt(document.getElementById("n").value);
+        kotheto = (n > max(x,y)) ? min(y): n;
+    }
     feltoltAlsok(x);
     Megjelenit(doboz, x, y);
 }
@@ -51,13 +58,13 @@ function frissit() {
             } else if (matrix[i][j] == 1) {
                 tabla[i][j].innerHTML = "";
                 let img = document.createElement("img");
-                img.src = "imgs/bule.png";
+                img.src = (tictactoe) ? "imgs/O.png" : "imgs/bule.png";
                 img.alt = "O";  
                 tabla[i][j].appendChild(img);          
             } else {
                 tabla[i][j].innerHTML = "";
                 let img = document.createElement("img");
-                img.src = "imgs/red.png"; 
+                img.src = (tictactoe) ? "imgs/X.png" : "imgs/red.png";
                 img.alt = "O";
                 tabla[i][j].appendChild(img);
             }
@@ -74,74 +81,95 @@ function koviJatekos() {
 }
 
 function winCheck() {
-    // Vízszintesen
-    for (let i = 0; i < x; i++) {
-        combo = 0;
-        j = y-1;
-        while (j-combo >= kotheto) {
-            if (matrix[j][i] == jatekos) {
-                combo++;
-            } else {
-                combo = 0;
+    if (tictactoe) {
+        // Vízszintesen
+        for (let i = 0; i < 3; i++) {
+            let j = 0;
+            while (j < 3 && matrix[i][j] == jatekos) {
+                j++;
             }
-            j--;
-            if (combo == kotheto) {
-                return true;
-            }
+            if (!(j < 3)) return true;
         }
-    }
-    //Oszlopban
-    for (let i = 0; i < y; i++) {
-        combo = 0;
-        j = 0;
-        while (j-combo <= x-kotheto) {
-            if (matrix[i][j] == jatekos) {
-                combo++;
-            } else {
-                combo = 0;
+        // Oszlopban
+        for (let i = 0; i < 3; i++) {
+            let j = 0;
+            while (j < 3 && matrix[j][i] == jatekos) {
+                j++;
             }
-            j++;
-            if (combo == kotheto) {
-                return true;
-            }
+            if (!(j < 3)) return true;
         }
-    }
-    // Jobbra átlósan
-    for (let i = y-1; i >= kotheto-1; i--) {
-        for (let j = 0; j < x-kotheto+1; j++) {
+        // Átlósan
+        if (matrix[1][1] == jatekos && ((matrix[0][0] == jatekos && matrix[2][2]) || (matrix[2][0] == jatekos && matrix[0][2]))) return true;
+    } else {
+        // Vízszintesen
+        for (let i = 0; i < x; i++) {
             combo = 0;
-            let k = i;
-            let l = j;
-            while (l <= x-kotheto+combo && k >= kotheto-1-combo) {
-                if (matrix[k][l] == jatekos) {
+            j = y-1;
+            while (j-combo >= kotheto) {
+                if (matrix[j][i] == jatekos) {
                     combo++;
                 } else {
                     combo = 0;
                 }
-                k--;
-                l++;
+                j--;
                 if (combo == kotheto) {
                     return true;
                 }
             }
         }
-    }
-    // Balra átlósan
-    for (let i = y-1; i >= kotheto-1; i--) {
-        for (let j = kotheto-1; j < x; j++) {
+        // Oszlopban
+        for (let i = 0; i < y; i++) {
             combo = 0;
-            let k = i;
-            let l = j;
-            while (l >= 0 && k >= kotheto-1-combo) {
-                if (matrix[k][l] == jatekos) {
+            j = 0;
+            while (j-combo <= x-kotheto) {
+                if (matrix[i][j] == jatekos) {
                     combo++;
                 } else {
                     combo = 0;
                 }
-                k--;
-                l--;
+                j++;
                 if (combo == kotheto) {
                     return true;
+                }
+            }
+        }
+        // Jobbra átlósan
+        for (let i = y-1; i >= kotheto-1; i--) {
+            for (let j = 0; j < x-kotheto+1; j++) {
+                combo = 0;
+                let k = i;
+                let l = j;
+                while (l <= x-kotheto+combo && k >= kotheto-1-combo) {
+                    if (matrix[k][l] == jatekos) {
+                        combo++;
+                    } else {
+                        combo = 0;
+                    }
+                    k--;
+                    l++;
+                    if (combo == kotheto) {
+                        return true;
+                    }
+                }
+            }
+        }
+        // Balra átlósan
+        for (let i = y-1; i >= kotheto-1; i--) {
+            for (let j = kotheto-1; j < x; j++) {
+                combo = 0;
+                let k = i;
+                let l = j;
+                while (l >= 0 && k >= kotheto-1-combo) {
+                    if (matrix[k][l] == jatekos) {
+                        combo++;
+                    } else {
+                        combo = 0;
+                    }
+                    k--;
+                    l--;
+                    if (combo == kotheto) {
+                        return true;
+                    }
                 }
             }
         }
@@ -149,13 +177,22 @@ function winCheck() {
     return false;
 }
 
-function lerak(j) {
-    if (alsok[j] < x) {
-        matrix[y-alsok[j]-1][j] = jatekos;
-        alsok[j]++;
-        frissit();
-        console.log(winCheck() ? "NYERT " + jatekos : "Nada");
-        koviJatekos();
+function lerak(i, j) {
+    if (tictactoe) {
+        if (matrix[i][j] == 0) {
+            matrix[i][j] = jatekos;
+            frissit();
+            console.log(winCheck() ? "NYERT " + jatekos : "Nada");
+            koviJatekos();
+        }
+    } else {
+        if (alsok[j] < x) {
+            matrix[y-alsok[j]-1][j] = jatekos;
+            alsok[j]++;
+            frissit();
+            console.log(winCheck() ? "NYERT " + jatekos : "Nada");
+            koviJatekos();
+        }
     }
 }
 
@@ -179,7 +216,7 @@ function Megjelenit(doboz, x, y) {
             td.innerText = "-"
             tr.appendChild(td);
             td.addEventListener("click", function() {
-                lerak(j);
+                lerak(i, j);
             })
             tabla[i][j] = td;
             matrix[i][j] = 0;
