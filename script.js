@@ -19,7 +19,7 @@ function start() {
         n = parseInt(document.getElementById("n").value);
         kotheto = (n > max(x,y)) ? min(y): n;
     }
-    let ido = parseInt(document.getElementById("Ido").value);
+    let ido = parseInt(document.getElementById("ido").value);
     feltoltAlsok(x);
     Megjelenit(doboz, x, y);
     playerTime[0] = ido * 60;
