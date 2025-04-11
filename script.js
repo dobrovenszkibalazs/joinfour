@@ -224,19 +224,27 @@ function winCheck() {
 
 function lerak(i, j) {
     if (tictactoe) {
-        if (matrix[i][j] == 0) {
+        if (matrix[i][j] == 0 && rakhatod) {
+            rakhatod = false; 
             matrix[i][j] = jatekos;
             frissit();
             console.log(winCheck() ? "NYERT " + jatekos : "Nada");
             koviJatekos();
+            setTimeout(function() {
+                rakhatod = true;
+            }, 1000);
         }
     } else {
-        if (alsok[j] < x) {
+        if (alsok[j] < x && rakhatod) {       
+            rakhatod = false;    
             matrix[y-alsok[j]-1][j] = jatekos;
             alsok[j]++;
             frissit();
             console.log(winCheck() ? "NYERT " + jatekos : "Nada");
             koviJatekos();
+            setTimeout(function() {
+                rakhatod = true;
+            }, 1000);
         }
     }
 }
