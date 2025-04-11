@@ -23,6 +23,9 @@ function start() {
         
     }
     let ido = parseInt(document.getElementById("ido").value);
+    if (ido = isNaN) {
+        ido = 3;
+    }
     feltoltAlsok(x);
     Megjelenit(doboz, x, y);
     playerTime[0] = ido * 60;
@@ -52,8 +55,8 @@ function stop() {
 function idozitoUpdate() {
     var elsotimer = formatTime(playerTime[0]);
     var masodiktimer = formatTime(playerTime[1]);
-    document.getElementById("player1Time").innerText = `Player 1: ${elsotimer}`;
-    document.getElementById("player2Time").innerText = `Player 2: ${masodiktimer}`;
+    document.getElementById("player1Time").innerText = `Játékos 1 ideje: ${elsotimer}`;
+    document.getElementById("player2Time").innerText = `Játékos 2 ideje: ${masodiktimer}`;
 }
 
 function formatTime(ms) {
