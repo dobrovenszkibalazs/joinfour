@@ -7,17 +7,20 @@ let idozito = null;
 let x;
 let y;
 let kotheto;
+ let tictactoe;
+ let rakhatod = true;
 
 function start() {
     const doboz = document.getElementById("doboz");
     tictactoe = document.getElementById("tictactoe").checked;
     if (tictactoe) {
-        x = 3, y = 3, kotheto = 3;
+        x = 3, y = 3, kotheto = 3, document.getElementById("idok").style.visibility = "hidden";
     } else {
         x = parseInt(document.getElementById("sor").value);
         y = parseInt(document.getElementById("oszlop").value);
         n = parseInt(document.getElementById("n").value);
-        kotheto = (n > max(x,y)) ? min(y): n;
+        kotheto = (n > max(x,y)) ? min(x,y): n;
+        
     }
     let ido = parseInt(document.getElementById("ido").value);
     feltoltAlsok(x);
@@ -98,13 +101,13 @@ function frissit() {
             } else if (matrix[i][j] == 1) {
                 tabla[i][j].innerHTML = "";
                 let img = document.createElement("img");
-                img.src = "imgs/bule.png";
+                img.src = (tictactoe) ? "imgs/O.png" : "imgs/bule.png";
                 img.alt = "O";  
                 tabla[i][j].appendChild(img);          
             } else {
                 tabla[i][j].innerHTML = "";
                 let img = document.createElement("img");
-                img.src = "imgs/red.png"; 
+                img.src = (tictactoe) ? "imgs/X.png" : "imgs/red.png";
                 img.alt = "O";
                 tabla[i][j].appendChild(img);
             }
@@ -258,7 +261,7 @@ function Megjelenit(doboz, x, y) {
             td.innerText = "-"
             tr.appendChild(td);
             td.addEventListener("click", function() {
-                lerak(j);
+                lerak(i, j);
             })
             tabla[i][j] = td;
             matrix[i][j] = 0;
