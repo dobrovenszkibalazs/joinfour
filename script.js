@@ -7,8 +7,10 @@ let idozito = null;
 let x;
 let y;
 let kotheto;
- let tictactoe;
- let rakhatod = true;
+let tictactoe;
+let rakhatod;
+let animacioId;
+let zuhanasIndex;
 
 function start() {
     const doboz = document.getElementById("doboz");
@@ -26,6 +28,7 @@ function start() {
     if (isNaN(ido)) {
         ido = 3;
     }
+    rakhatod = true
     feltoltAlsok(x);
     Megjelenit(doboz, x, y);
     playerTime[0] = ido * 60;
@@ -90,10 +93,6 @@ function feltoltAlsok(n) {
 
 function rng(min,max) {
     return Math.floor(Math.random()*(max-min+1))+min;
-}
-
-function game() {
-
 }
 
 function frissit() {
@@ -171,7 +170,6 @@ function winCheck() {
             j = 0;
             while (j-combo <= x-kotheto) {
                 if (matrix[j][i] == jatekos) {
-                    console.log(combo);
                     combo++;
                 } else {
                     combo = 0;
@@ -226,6 +224,24 @@ function winCheck() {
     return false;
 }
 
+function zuhan(j) {
+    matrix[zuhanasIndex][j] = 0;
+    zuhanasIndex++;
+    matrix[zuhanasIndex][j] = jatekos;
+    frissit();
+    if (y-alsok[j]-1 == zuhanasIndex) {
+        clearInterval(animacioId);
+        alsok[j]++;
+        win = winCheck();
+        if (win) {
+            console.log("nyert a" + ((jatekos == 1) ? "z első" : " második") + " játékos!");
+        } else {
+            rakhatod = true;
+        }
+        koviJatekos();
+    }
+}
+
 function lerak(i, j) {
     if (tictactoe) {
         if (matrix[i][j] == 0 && rakhatod) {
@@ -236,29 +252,29 @@ function lerak(i, j) {
             koviJatekos();
             setTimeout(function() {
                 rakhatod = true;
-            }, 1000);
+            }, 800);
         }
     } else {
-        if (alsok[j] < x && rakhatod) {       
-            rakhatod = false;    
-            matrix[y-alsok[j]-1][j] = jatekos;
-            alsok[j]++;
-            frissit();
-            console.log(winCheck() ? "NYERT " + jatekos : "Nada");
-            koviJatekos();
-            setTimeout(function() {
-                rakhatod = true;
-            }, 1000);
+        if (alsok[j] < x && rakhatod) {  
+            rakhatod = false;
+            if (y-i-1 >= alsok[j]+1) {
+                zuhanasIndex = i;
+                matrix[i][j] = jatekos;
+                frissit();
+                animacioId = setInterval(zuhan, 200, j);
+            } else {
+                matrix[y-alsok[j]-1][j] = jatekos;
+                alsok[j]++;
+                frissit();
+                koviJatekos();
+                win = winCheck();
+                if (win) console.log("nyert az " + ((jatekos == 1) ? "második" : "első") + " játékos!");
+                setTimeout(function() {
+                    rakhatod = true;
+                }, 800);
+            }
         }
     }
-}
-
-function kereses(l, v, n) {
-    let i = 0;
-    while (i < n && l[i] != v) {
-        i++;
-    }
-    return (i < n) ? i : -1;
 }
 
 function Megjelenit(doboz, x, y) {
