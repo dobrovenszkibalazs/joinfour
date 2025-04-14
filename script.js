@@ -23,7 +23,7 @@ function start() {
         
     }
     let ido = parseInt(document.getElementById("ido").value);
-    if (ido = isNaN) {
+    if (isNaN(ido)) {
         ido = 3;
     }
     feltoltAlsok(x);
@@ -170,7 +170,8 @@ function winCheck() {
             combo = 0;
             j = 0;
             while (j-combo <= x-kotheto) {
-                if (matrix[i][j] == jatekos) {
+                if (matrix[j][i] == jatekos) {
+                    console.log(combo);
                     combo++;
                 } else {
                     combo = 0;
