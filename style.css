@@ -30,3 +30,57 @@ img {
     width: 100%;
     height: 100%;
 }
+
+#idok {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 100px;
+    margin-bottom: 20px;
+}
+
+.player-block {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#player1Time,
+#player2Time {
+    width: auto;
+    text-align: center;
+    font-weight: bold;
+    font-size: 18px;
+    margin: 0;
+}
+
+.player-block img {
+    width: 50px;
+    height: auto;
+    margin-top: 5px;
+}
+
+
+#doboz {
+    display: flex;
+    justify-content: center;
+}
+
+#jatekosTurn p {
+    margin-top: 20px;
+    justify-content: center;
+    display: none;
+    font-weight: bold;
+    font-size: 18px;
+    text-align: center;
+}
+
+.jatekos-2-jon #piros {
+    display: block;
+    color: red;
+}
+
+.jatekos-1-jon #kek {
+    color: blue;
+    display: block;
+}

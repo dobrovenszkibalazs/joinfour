@@ -18,13 +18,23 @@
         <button onclick="start()">Generálj!</button>
     </div>
     <div id="idok">
-        <p id="player1Time">Játékos 1 ideje: 0:00</p>
-        <p id="player2Time">Játékos 2 ideje: 0:00</p>
-    </div>
+        <div class="player-block">
+            <p id="player1Time">Játékos 1 ideje: ---</p>
+            <img src="imgs/blueplayer.png" alt="Kek Játékos">
+        </div>
+        <div class="player-block">
+            <p id="player2Time">Játékos 2 ideje: ---</p>
+            <img src="imgs/redplayer.png" alt="Piros Játékos">
+        </div>
+    </div>    
     <div id="gameContainer">
         <div id="doboz">
 
         </div>
     </div> 
+    <div id="jatekosTurn">
+        <p id="piros">A második játékos következik!</p>
+        <p id="kek">Az első játékos következik!</p>
+    </div>
 </body>
 </html>

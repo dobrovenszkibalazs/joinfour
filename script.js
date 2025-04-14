@@ -13,6 +13,7 @@ let animacioId;
 let zuhanasIndex;
 
 function start() {
+    Jatekosszoveg()
     const doboz = document.getElementById("doboz");
     tictactoe = document.getElementById("tictactoe").checked;
     if (tictactoe) {
@@ -31,11 +32,24 @@ function start() {
     rakhatod = true
     feltoltAlsok(x);
     Megjelenit(doboz, x, y);
+
     playerTime[0] = ido * 60;
     playerTime[1] = ido * 60;
     idozitoUpdate();
     startTimer(jatekos);
 }
+
+function Jatekosszoveg() {
+    const turnDiv = document.getElementById("jatekosTurn");
+    if (jatekos === 1) {
+        turnDiv.classList.remove("jatekos-2-jon");
+        turnDiv.classList.add("jatekos-1-jon");
+    } else {
+        turnDiv.classList.remove("jatekos-1-jon");
+        turnDiv.classList.add("jatekos-2-jon");
+    }
+}
+
 
 function startTimer(player) {
     stop();
@@ -125,6 +139,7 @@ function koviJatekos() {
         jatekos--;
         startTimer(jatekos);
     }
+    Jatekosszoveg()
 }
 
 function winCheck() {
@@ -235,10 +250,11 @@ function zuhan(j) {
         win = winCheck();
         if (win) {
             console.log("nyert a" + ((jatekos == 1) ? "z első" : " második") + " játékos!");
+            stop();
         } else {
             rakhatod = true;
+            koviJatekos();
         }
-        koviJatekos();
     }
 }
 
@@ -266,9 +282,13 @@ function lerak(i, j) {
                 matrix[y-alsok[j]-1][j] = jatekos;
                 alsok[j]++;
                 frissit();
-                koviJatekos();
                 win = winCheck();
-                if (win) console.log("nyert az " + ((jatekos == 1) ? "második" : "első") + " játékos!");
+                if (win) {
+                    console.log("nyert az " + ((jatekos == 1) ? "második" : "első") + " játékos!");
+                    stop()
+                } else {
+                    koviJatekos();
+                };
                 setTimeout(function() {
                     rakhatod = true;
                 }, 800);
