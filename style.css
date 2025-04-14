@@ -39,6 +39,22 @@ img {
     margin-bottom: 20px;
 }
 
+#nemidok {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 100px;
+    margin-bottom: 20px;
+}
+
+#nemidok p {
+    width: auto;
+    text-align: center;
+    font-weight: bold;
+    font-size: 18px;
+    margin: 0;
+}
+
 .player-block {
     display: flex;
     flex-direction: column;
@@ -59,7 +75,6 @@ img {
     height: auto;
     margin-top: 5px;
 }
-
 
 #doboz {
     display: flex;
@@ -83,4 +98,23 @@ img {
 .jatekos-1-jon #kek {
     color: blue;
     display: block;
+}
+
+#winScreen {
+    text-align: center;
+    margin-top: 30px;
+}
+
+#winText {
+    font-size: 24px;
+    font-weight: bold;
+    color: green;
+    border: 2px black solid;
+    display: inline-block; 
+    padding: 10px 20px; 
+    margin: 0 auto; 
+}
+
+.hidden {
+    visibility: hidden;
 }

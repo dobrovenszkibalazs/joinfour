@@ -14,9 +14,10 @@
         <input type="number" id="ido" placeholder="Idő">
         <input type="number" id="n" placeholder="Mennyit">
         <input type="checkbox" name="tictactoe" id="tictactoe">
-        <button onclick="start()">Replay</button>
+        <button onclick="start()">Reset</button>
         <button onclick="start()">Generálj!</button>
     </div>
+
     <div id="idok">
         <div class="player-block">
             <p id="player1Time">Játékos 1 ideje: ---</p>
@@ -26,15 +27,27 @@
             <p id="player2Time">Játékos 2 ideje: ---</p>
             <img src="imgs/redplayer.png" alt="Piros Játékos">
         </div>
-    </div>    
+    </div>  
+    
+    <div id="nemidok" class="hidden">
+        <p id="xes">Játékos 1 : O</p>
+        <p id="oasszem">Játékos 2 : X</p>
+    </div>
+
     <div id="gameContainer">
         <div id="doboz">
 
         </div>
     </div> 
+
     <div id="jatekosTurn">
         <p id="piros">A második játékos következik!</p>
         <p id="kek">Az első játékos következik!</p>
     </div>
+
+    <div id="winScreen" class="hidden">
+        <p id="winText">Játékos X nyert!</p>
+        <button id="replay">Játssz újra!</button>
+      </div>    
 </body>
 </html>

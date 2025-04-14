@@ -17,8 +17,9 @@ function start() {
     const doboz = document.getElementById("doboz");
     tictactoe = document.getElementById("tictactoe").checked;
     if (tictactoe) {
-        x = 3, y = 3, kotheto = 3, document.getElementById("idok").style.visibility = "hidden";
+        x = 3, y = 3, kotheto = 3, document.getElementById("idok").style.display = "none", document.getElementById("nemidok").style.visibility = "visible";
     } else {
+        document.getElementById("nemidok").style.display = "none";
         x = parseInt(document.getElementById("sor").value);
         y = parseInt(document.getElementById("oszlop").value);
         n = parseInt(document.getElementById("n").value);
@@ -50,7 +51,6 @@ function Jatekosszoveg() {
     }
 }
 
-
 function startTimer(player) {
     stop();
 
@@ -70,13 +70,13 @@ function stop() {
 }
 
 function idozitoUpdate() {
-    var elsotimer = formatTime(playerTime[0]);
-    var masodiktimer = formatTime(playerTime[1]);
+    var elsotimer = atalakitas(playerTime[0]);
+    var masodiktimer = atalakitas(playerTime[1]);
     document.getElementById("player1Time").innerText = `Játékos 1 ideje: ${elsotimer}`;
     document.getElementById("player2Time").innerText = `Játékos 2 ideje: ${masodiktimer}`;
 }
 
-function formatTime(ms) {
+function atalakitas(ms) {
     let min = Math.floor(ms / 60);
     let sec = ms % 60;
     let minS = min.toString();
@@ -249,8 +249,7 @@ function zuhan(j) {
         alsok[j]++;
         win = winCheck();
         if (win) {
-            console.log("nyert a" + ((jatekos == 1) ? "z első" : " második") + " játékos!");
-            stop();
+            WinScreen(jatekos);
         } else {
             rakhatod = true;
             koviJatekos();
@@ -264,8 +263,12 @@ function lerak(i, j) {
             rakhatod = false; 
             matrix[i][j] = jatekos;
             frissit();
-            console.log(winCheck() ? "NYERT " + jatekos : "Nada");
-            koviJatekos();
+            win = winCheck();
+                if (win) {
+                    WinScreen(jatekos);
+                } else {
+                    koviJatekos();
+                };
             setTimeout(function() {
                 rakhatod = true;
             }, 800);
@@ -284,8 +287,7 @@ function lerak(i, j) {
                 frissit();
                 win = winCheck();
                 if (win) {
-                    console.log("nyert az " + ((jatekos == 1) ? "második" : "első") + " játékos!");
-                    stop()
+                    WinScreen(jatekos);
                 } else {
                     koviJatekos();
                 };
@@ -296,6 +298,21 @@ function lerak(i, j) {
         }
     }
 }
+
+function WinScreen(nyertes) {
+    stop();
+    clearInterval(animacioId);
+    const winText = document.getElementById("winText");
+    const winScreen = document.getElementById("winScreen");
+
+    winText.innerText = `Játékos ${nyertes} nyert!`;
+    winScreen.classList.remove("hidden");
+    const replay = document.getElementById("replay");
+    replay.onclick = () => {
+        location.reload();
+    };
+}
+
 
 function Megjelenit(doboz, x, y) {
     doboz.innerHTML = "";
