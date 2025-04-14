@@ -11,6 +11,7 @@ let tictactoe;
 let rakhatod;
 let animacioId;
 let zuhanasIndex;
+let lepesek;
 
 function start() {
     Jatekosszoveg()
@@ -31,6 +32,7 @@ function start() {
         ido = 3;
     }
     rakhatod = true
+    lepesek = 0;
     feltoltAlsok(x);
     Megjelenit(doboz, x, y);
 
@@ -150,7 +152,7 @@ function winCheck() {
             while (j < 3 && matrix[i][j] == jatekos) {
                 j++;
             }
-            if (!(j < 3)) return true;
+            if (!(j < 3)) return 1;
         }
         // Oszlopban
         for (let i = 0; i < 3; i++) {
@@ -158,12 +160,12 @@ function winCheck() {
             while (j < 3 && matrix[j][i] == jatekos) {
                 j++;
             }
-            if (!(j < 3)) return true;
+            if (!(j < 3)) return 1;
         }
         // Átlósan
-        if (matrix[1][1] == jatekos && ((matrix[0][0] == jatekos && matrix[2][2]) || (matrix[2][0] == jatekos && matrix[0][2]))) return true;
+        if (matrix[1][1] == jatekos && ((matrix[0][0] == jatekos && matrix[2][2]) || (matrix[2][0] == jatekos && matrix[0][2]))) return 1;
     } else {
-        // Vízszintesen
+        // Oszlopban
         for (let i = 0; i < x; i++) {
             combo = 0;
             j = y-1;
@@ -175,23 +177,23 @@ function winCheck() {
                 }
                 j--;
                 if (combo == kotheto) {
-                    return true;
+                    return 1;
                 }
             }
         }
-        // Oszlopban
-        for (let i = 0; i < y; i++) {
+        // Vízszintesen
+        for (let i = y-1; i >= 0; i--) {
             combo = 0;
             j = 0;
             while (j-combo <= x-kotheto) {
-                if (matrix[j][i] == jatekos) {
+                if (matrix[i][j] == jatekos) {
                     combo++;
                 } else {
                     combo = 0;
                 }
                 j++;
                 if (combo == kotheto) {
-                    return true;
+                    return 1;
                 }
             }
         }
@@ -210,7 +212,7 @@ function winCheck() {
                     k--;
                     l++;
                     if (combo == kotheto) {
-                        return true;
+                        return 1;
                     }
                 }
             }
@@ -230,13 +232,14 @@ function winCheck() {
                     k--;
                     l--;
                     if (combo == kotheto) {
-                        return true;
+                        return 1;
                     }
                 }
             }
         }
     }
-    return false;
+    if (lepesek == x*y) return 2;
+    return 0;
 }
 
 function zuhan(j) {
@@ -248,11 +251,13 @@ function zuhan(j) {
         clearInterval(animacioId);
         alsok[j]++;
         win = winCheck();
-        if (win) {
+        if (win == 1) {
             WinScreen(jatekos);
-        } else {
+        } else if (win == 0) {
             rakhatod = true;
             koviJatekos();
+        } else {
+            WinScreen(0);
         }
     }
 }
@@ -263,12 +268,15 @@ function lerak(i, j) {
             rakhatod = false; 
             matrix[i][j] = jatekos;
             frissit();
+            lepesek++;
             win = winCheck();
-                if (win) {
-                    WinScreen(jatekos);
-                } else {
-                    koviJatekos();
-                };
+            if (win == 1) {
+                WinScreen(jatekos);
+            } else if (win == 0) {
+                koviJatekos();
+            } else {
+                WinScreen(0);
+            }
             setTimeout(function() {
                 rakhatod = true;
             }, 800);
@@ -276,6 +284,7 @@ function lerak(i, j) {
     } else {
         if (alsok[j] < x && rakhatod) {  
             rakhatod = false;
+            lepesek++;
             if (y-i-1 >= alsok[j]+1) {
                 zuhanasIndex = i;
                 matrix[i][j] = jatekos;
@@ -286,11 +295,13 @@ function lerak(i, j) {
                 alsok[j]++;
                 frissit();
                 win = winCheck();
-                if (win) {
+                if (win == 1) {
                     WinScreen(jatekos);
-                } else {
+                } else if (win == 0) {
                     koviJatekos();
-                };
+                } else {
+                    WinScreen(0);
+                }
                 setTimeout(function() {
                     rakhatod = true;
                 }, 800);
@@ -304,8 +315,11 @@ function WinScreen(nyertes) {
     clearInterval(animacioId);
     const winText = document.getElementById("winText");
     const winScreen = document.getElementById("winScreen");
-
-    winText.innerText = `Játékos ${nyertes} nyert!`;
+    if (nyertes == 0) {
+        winText.innerText = "Döntetlen!";
+    } else {
+        winText.innerText = `Játékos ${nyertes} nyert!`;
+    }
     winScreen.classList.remove("hidden");
     const replay = document.getElementById("replay");
     replay.onclick = () => {
