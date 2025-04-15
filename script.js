@@ -14,18 +14,18 @@ let zuhanasIndex;
 let lepesek;
 
 function start() {
-    Jatekosszoveg()
+    
     const doboz = document.getElementById("doboz");
     tictactoe = document.getElementById("tictactoe").checked;
     if (tictactoe) {
         x = 3, y = 3, kotheto = 3, document.getElementById("idok").style.display = "none", document.getElementById("nemidok").style.visibility = "visible";
     } else {
-        document.getElementById("nemidok").style.display = "none";
         x = parseInt(document.getElementById("sor").value);
         y = parseInt(document.getElementById("oszlop").value);
+        if (isNaN(x) || isNaN(y)) return -1;
+        document.getElementById("nemidok").style.display = "none";
         n = parseInt(document.getElementById("n").value);
-        kotheto = (n > max(x,y)) ? min(x,y): n;
-        
+        kotheto = (n > max(x,y) || isNaN(n)) ? min(x,y): n;
     }
     let ido = parseInt(document.getElementById("ido").value);
     if (isNaN(ido)) {
@@ -33,6 +33,7 @@ function start() {
     }
     rakhatod = true
     lepesek = 0;
+    Jatekosszoveg()
     feltoltAlsok(x);
     Megjelenit(doboz, x, y);
 
@@ -176,7 +177,7 @@ function winCheck() {
         for (let i = 0; i < x; i++) {
             combo = 0;
             j = y-1;
-            while (j+combo >= kotheto) {
+            while (j+combo >= kotheto-1) {
                 if (matrix[j][i] == jatekos) {
                     combo++;
                 } else {
