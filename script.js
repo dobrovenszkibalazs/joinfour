@@ -63,6 +63,7 @@ function startTimer(player) {
             idozitoUpdate();
         } else {
             stop();
+            winScreen((jatekos == 1) ? 2 : 1);
         }
     }, 1000);
 }
@@ -115,18 +116,24 @@ function frissit() {
     for (let i = 0; i < y; i++) {
         for (let j = 0; j < x; j++) {
             if (matrix[i][j] == 0) {
-                tabla[i][j].innerHTML = "-";
+                tabla[i][j].innerHTML = "";
             } else if (matrix[i][j] == 1) {
                 tabla[i][j].innerHTML = "";
                 let img = document.createElement("img");
                 img.src = (tictactoe) ? "imgs/O.png" : "imgs/bule.png";
-                img.alt = "O";  
-                tabla[i][j].appendChild(img);          
+                img.alt = "O";
+                if (!tictactoe) {
+                    img.classList.add("golyo");
+                };
+                tabla[i][j].appendChild(img);
             } else {
                 tabla[i][j].innerHTML = "";
                 let img = document.createElement("img");
                 img.src = (tictactoe) ? "imgs/X.png" : "imgs/red.png";
-                img.alt = "O";
+                img.alt = "X";
+                if (!tictactoe) {
+                    img.classList.add("golyo");
+                };
                 tabla[i][j].appendChild(img);
             }
         }
@@ -252,12 +259,12 @@ function zuhan(j) {
         alsok[j]++;
         win = winCheck();
         if (win == 1) {
-            WinScreen(jatekos);
+            winScreen(jatekos);
         } else if (win == 0) {
             rakhatod = true;
             koviJatekos();
         } else {
-            WinScreen(0);
+            winScreen(0);
         }
     }
 }
@@ -271,11 +278,11 @@ function lerak(i, j) {
             lepesek++;
             win = winCheck();
             if (win == 1) {
-                WinScreen(jatekos);
+                winScreen(jatekos);
             } else if (win == 0) {
                 koviJatekos();
             } else {
-                WinScreen(0);
+                winScreen(0);
             }
             setTimeout(function() {
                 rakhatod = true;
@@ -296,11 +303,11 @@ function lerak(i, j) {
                 frissit();
                 win = winCheck();
                 if (win == 1) {
-                    WinScreen(jatekos);
+                    winScreen(jatekos);
                 } else if (win == 0) {
                     koviJatekos();
                 } else {
-                    WinScreen(0);
+                    winScreen(0);
                 }
                 setTimeout(function() {
                     rakhatod = true;
@@ -310,7 +317,7 @@ function lerak(i, j) {
     }
 }
 
-function WinScreen(nyertes) {
+function winScreen(nyertes) {
     stop();
     clearInterval(animacioId);
     const winText = document.getElementById("winText");
@@ -337,11 +344,17 @@ function Megjelenit(doboz, x, y) {
         tabla[i] = [];
         for (let j = 0; j < y; j++) {
             const td = document.createElement("td");
-            td.innerText = "-"
+            td.innerText = ""
             tr.appendChild(td);
             td.addEventListener("click", function() {
                 lerak(i, j);
             })
+            if (!tictactoe) {
+                td.style.backgroundImage = "url('imgs/cella.png')";
+            } else {
+                td.style.backgroundColor = "white";
+                td.style.border = "3px solid black"
+            }
             tabla[i][j] = td;
             matrix[i][j] = 0;
         }
