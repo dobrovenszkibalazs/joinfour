@@ -176,7 +176,7 @@ function winCheck() {
         for (let i = 0; i < x; i++) {
             combo = 0;
             j = y-1;
-            while (j-combo >= kotheto) {
+            while (j+combo >= kotheto) {
                 if (matrix[j][i] == jatekos) {
                     combo++;
                 } else {
