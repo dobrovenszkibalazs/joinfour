@@ -1,0 +1,110 @@
+body {
+    text-align: center;
+    background-color: black;
+    color: white;
+}
+
+#szer, #szam {
+    font-size: 25px;
+    font-weight: bold;
+}
+
+#wc, #bc {
+    width: 5%;
+    position: fixed;
+    right: 10px;
+    top: 10px;
+}
+
+body.darkmode #bc {
+    background-color: black;
+    color: white;
+}
+
+body.lightmode #wc {
+    background-color: white;
+    color: black;
+}
+ 
+#starter {
+    margin: auto;
+    align-items: center;
+}
+
+#starter .ac {
+    filter: saturate(1000);
+}
+
+#up1, #up2, #up3, #up4 {
+    border: 1px white solid;
+}
+
+#ph {
+  border: 1px solid #ccc;
+  padding: 10px;
+  width: 350px;
+  margin-top: 20px;
+  margin-left: auto;
+  margin-right: auto;
+  border-radius: 8px;
+  text-align: center;
+}
+
+.ph2 {
+  border: 1px solid #ccc;
+  padding: 10px;
+  width: 350px;
+  margin-top: 20px;
+  margin-left: auto;
+  margin-right: auto;
+  border-radius: 8px;
+  text-align: center;
+}
+
+#upgrades {
+  display: flex;
+  margin-top: 40px;
+  gap: 69px;
+  flex-wrap: wrap;
+}
+
+#upgrades > div {
+  border: 1px solid #ccc;
+  padding: 10px;
+  width: 250px;
+  border-radius: 8px;
+}
+
+#palesz {
+    width: 5%;
+}
+
+#meme {
+    border-radius: 100%;
+}
+
+#nerf-message {
+    top: 470px;
+    left: 10px;
+    position: absolute;
+    font-weight: bold;
+    color: red;
+}
+
+.ph2 + p {
+    display: inline-block;
+    padding: 12px 20px;
+    margin-top: 10px;
+    background-color: #f4f4f4;
+    color: red;
+    border: 2px solid #888;
+    border-radius: 8px;
+    font-weight: bold;
+    font-size: 1.5rem;
+    transition: all 0.2s ease-in-out;
+}
+
+.ph2 + p:hover {
+    background-color: #e0e0e0;
+    transform: scale(1.03);
+}
